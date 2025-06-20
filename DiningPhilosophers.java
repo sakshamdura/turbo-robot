@@ -87,4 +87,19 @@ public class DiningPhilosophers {
         // Simulating thinking
         Thread.sleep(random.nextInt(100));
     }
+
+    public static void main(String[] args) {
+        DiningPhilosophers table = new DiningPhilosophers();
+
+        for (int i = 0; i < NUM_PHILOSOPHERS; i++) {
+            final int id = i;
+            new Thread(() -> {
+                try {
+                    table.dine(id);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }, "Philosopher-" + id).start();
+        }
+    }
 }
